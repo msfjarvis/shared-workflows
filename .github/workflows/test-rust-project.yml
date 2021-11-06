@@ -43,6 +43,7 @@ jobs:
       with:
         path: |
           ~/.cargo/registry
+          ~/.cargo/bin
           target
         key: ${{ runner.os }}-cargo-${{ matrix.rust }}-${{ hashFiles('Cargo.lock') }}
 
@@ -63,3 +64,14 @@ jobs:
       with:
         command: test
         args: --all-features
+
+    - name: Run cargo deny
+      shell: bash
+      run: |
+        if [ -f deny.toml ]; then
+          cargo install cargo-deny --locked
+          cargo deny check
+        else
+          # Simulate success because we don't care
+          exit 0
+        fi
