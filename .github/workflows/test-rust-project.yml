@@ -69,7 +69,7 @@ jobs:
       shell: bash
       run: |
         if [ -f deny.toml ]; then
-          cargo install cargo-deny --locked
+          [[ -e "${HOME}/.cargo/bin/cargo-deny" ]] || cargo install cargo-deny --locked
           cargo deny check
         else
           # Simulate success because we don't care
