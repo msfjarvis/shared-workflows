@@ -6,6 +6,9 @@ on:
       github-token:
         required: false
 
+env:
+  RUSTFLAGS: '-Dwarnings'
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
