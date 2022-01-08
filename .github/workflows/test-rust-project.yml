@@ -17,8 +17,8 @@ jobs:
       matrix:
         os:
           - macos-11
-          - ubuntu-latest
-          - windows-latest
+          - ubuntu-20.04
+          - windows-2022
         rust:
           - beta
           - nightly
