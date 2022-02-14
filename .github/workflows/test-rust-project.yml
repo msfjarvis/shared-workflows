@@ -79,13 +79,15 @@ jobs:
         command: test
         args: --all-features
 
+    - name: Install cargo-deny
+      uses: baptiste0928/cargo-install@v1
+      with:
+        crate: cargo-deny
+        version: "0.11.3"
+
     - name: Run cargo deny
       shell: bash
       run: |
         if [ -f deny.toml ]; then
-          [[ -e "${HOME}/.cargo/bin/cargo-deny" ]] || cargo install cargo-deny --locked
           cargo deny check
-        else
-          # Simulate success because we don't care
-          exit 0
         fi
