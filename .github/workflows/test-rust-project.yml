@@ -73,11 +73,17 @@ jobs:
         command: check
         args: --all-features
 
-    - name: Run cargo test
+    - name: Install cargo-nextest
+      uses: baptiste0928/cargo-install@v1
+      with:
+        crate: cargo-nextest
+        version: "0.9.2"
+
+    - name: Run cargo nextest
       uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505
       with:
-        command: test
-        args: --all-features
+        command: nextest
+        args: run --all-features
 
     - name: Install cargo-deny
       uses: baptiste0928/cargo-install@v1
