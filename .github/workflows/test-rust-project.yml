@@ -86,6 +86,11 @@ jobs:
         command: check
         args: --all-features
 
+    - name: Run cargo clippy
+      uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505
+      with:
+        command: clippy
+
     - name: Install cargo-nextest
       uses: baptiste0928/cargo-install@v1
       with:
