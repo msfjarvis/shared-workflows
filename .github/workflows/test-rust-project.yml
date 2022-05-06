@@ -43,6 +43,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
 
+    - uses: rui314/setup-mold@v1
+      if: runner.os == 'Linux'
+      with:
+        make-default: true
+
     - name: Install Rust toolchain (Unix)
       if: runner.os != 'Windows'
       shell: bash
