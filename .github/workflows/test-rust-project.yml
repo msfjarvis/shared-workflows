@@ -74,14 +74,7 @@ jobs:
         curl https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe -o rustup-init.exe
         ./rustup-init --profile default --default-toolchain ${{ inputs.msrv }} -y
 
-    - name: Cache cargo registry and build outputs
-      uses: actions/cache@26968a09c0ea4f3e233fdddbafd1166051a095f6
-      with:
-        path: |
-          ~/.cargo/registry
-          ~/.cargo/bin
-          target
-        key: ${{ runner.os }}-cargo-${{ matrix.rust }}-${{ hashFiles('Cargo.lock') }}
+    - uses: Swatinem/rust-cache@v1
 
     - name: Test compilation
       uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505
@@ -124,14 +117,7 @@ jobs:
         curl https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe -o rustup-init.exe
         ./rustup-init --profile default --default-toolchain ${{ matrix.rust }} -y
 
-    - name: Cache cargo registry and build outputs
-      uses: actions/cache@26968a09c0ea4f3e233fdddbafd1166051a095f6
-      with:
-        path: |
-          ~/.cargo/registry
-          ~/.cargo/bin
-          target
-        key: ${{ runner.os }}-cargo-${{ matrix.rust }}-${{ hashFiles('Cargo.lock') }}
+    - uses: Swatinem/rust-cache@v1
 
     - name: Check formatting
       uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505
