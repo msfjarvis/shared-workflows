@@ -75,6 +75,8 @@ jobs:
         ./rustup-init --profile default --default-toolchain ${{ inputs.msrv }} -y
 
     - uses: Swatinem/rust-cache@v1
+      with:
+        key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}
 
     - name: Test compilation
       uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505
@@ -118,6 +120,8 @@ jobs:
         ./rustup-init --profile default --default-toolchain ${{ matrix.rust }} -y
 
     - uses: Swatinem/rust-cache@v1
+      with:
+        key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}-${{ matrix.rust }}
 
     - name: Check formatting
       uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505
