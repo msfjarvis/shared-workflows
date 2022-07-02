@@ -40,7 +40,7 @@ jobs:
   index:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Generate LSIF data
         uses: sourcegraph/lsif-rust-action@main
       - name: Upload LSIF data
