@@ -40,7 +40,7 @@ jobs:
   index:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Generate LSIF data
         uses: sourcegraph/lsif-rust-action@main
       - name: Upload LSIF data
@@ -101,7 +101,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
-    - uses: rui314/setup-mold@v1
+    - uses: rui314/setup-mold@501fb85cee90dc5aea1f4691c0c7334ec4a4910c # tag=v1
       if: runner.os == 'Linux'
       with:
         make-default: true
@@ -139,13 +139,13 @@ jobs:
         sudo apt-get install -y ${PACKAGES}
 
     - name: Install cargo-nextest
-      uses: baptiste0928/cargo-install@v1
+      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
       with:
         crate: cargo-nextest
         version: "0.9.14"
 
     - name: Install cargo-deny
-      uses: baptiste0928/cargo-install@v1
+      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
       with:
         crate: cargo-deny
         version: "0.11.4"
