@@ -62,7 +62,7 @@ jobs:
       uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag = v3
 
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@v1
+      uses: dtolnay/rust-toolchain@1ce4a7352a1efe5dede2e52c75512b34256e4f44 # tag=v1
       with:
         toolchain: ${{ inputs.msrv }}
 
@@ -89,7 +89,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
 
     - uses: rui314/setup-mold@501fb85cee90dc5aea1f4691c0c7334ec4a4910c # tag=v1
       if: runner.os == 'Linux'
@@ -97,7 +97,7 @@ jobs:
         make-default: true
 
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@v1
+      uses: dtolnay/rust-toolchain@1ce4a7352a1efe5dede2e52c75512b34256e4f44 # tag=v1
       with:
         toolchain: ${{ matrix.rust }}
 
