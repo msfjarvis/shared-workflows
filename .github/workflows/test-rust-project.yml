@@ -59,29 +59,19 @@ jobs:
           - windows-2022
     steps:
     - name: Checkout repository
-      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag = v3
 
-    - name: Install Rust toolchain (Unix)
-      if: runner.os != 'Windows'
-      shell: bash
-      run:
-        curl https://sh.rustup.rs -sSf | sh -s -- --profile default --default-toolchain ${{ inputs.msrv }} -y
-
-    - name: Install rust toolchain (Windows)
-      if: runner.os == 'Windows'
-      shell: bash
-      run: |
-        curl https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe -o rustup-init.exe
-        ./rustup-init --profile default --default-toolchain ${{ inputs.msrv }} -y
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@v1
+      with:
+        toolchain: ${{ inputs.msrv }}
 
     - uses: Swatinem/rust-cache@v1
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}
 
     - name: Test compilation
-      uses: actions-rs/cargo@9e120dd99b0fbad1c065f686657e914e76bd7b72
-      with:
-        command: check
+      run: cargo check
 
   test:
     runs-on: ${{ matrix.os }}
@@ -99,35 +89,31 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      uses: actions/checkout@v3
 
     - uses: rui314/setup-mold@501fb85cee90dc5aea1f4691c0c7334ec4a4910c # tag=v1
       if: runner.os == 'Linux'
       with:
         make-default: true
 
-    - name: Install Rust toolchain (Unix)
-      if: runner.os != 'Windows'
-      shell: bash
-      run:
-        curl https://sh.rustup.rs -sSf | sh -s -- --profile default --default-toolchain ${{ matrix.rust }} -y
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@v1
+      with:
+        toolchain: ${{ matrix.rust }}
 
-    - name: Install rust toolchain (Windows)
-      if: runner.os == 'Windows'
-      shell: bash
-      run: |
-        curl https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe -o rustup-init.exe
-        ./rustup-init --profile default --default-toolchain ${{ matrix.rust }} -y
+    - name: Install cargo-nextest
+      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
+      with:
+        crate: cargo-nextest
+
+    - name: Install cargo-deny
+      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
+      with:
+        crate: cargo-deny
 
     - uses: Swatinem/rust-cache@v1
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}-${{ matrix.rust }}
-
-    - name: Check formatting
-      uses: actions-rs/cargo@9e120dd99b0fbad1c065f686657e914e76bd7b72
-      with:
-        command: fmt
-        args: -- --check
 
     - name: Install required packages (Linux)
       if: ${{ inputs.apt_packages != '' && runner.os == 'Linux' }}
@@ -138,33 +124,20 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ${PACKAGES}
 
-    - name: Install cargo-nextest
-      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
-      with:
-        crate: cargo-nextest
-        version: "0.9.14"
+    - name: Check formatting
+      shell: bash
+      run: cargo fmt -- --check
 
-    - name: Install cargo-deny
-      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
-      with:
-        crate: cargo-deny
-        version: "0.11.4"
-
-    - name: cargo-deny
+    - name: Run cargo-deny
       shell: bash
       run: |
         if [ -f deny.toml ]; then
           cargo deny check
         fi
-
     - name: Clippy
-      uses: actions-rs/cargo@9e120dd99b0fbad1c065f686657e914e76bd7b72
-      with:
-        command: clippy
-        args: -- -Wclippy::pedantic
+      shell: bash
+      run: cargo clippy -- -Wclippy::pedantic
 
     - name: Run tests
-      uses: actions-rs/cargo@9e120dd99b0fbad1c065f686657e914e76bd7b72
-      with:
-        command: nextest
-        args: run --all-features
+      shell: bash
+      run: cargo nextest run --all-features
