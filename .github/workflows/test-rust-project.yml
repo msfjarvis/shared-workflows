@@ -37,17 +37,6 @@ env:
   RUST_BACKTRACE: short
 
 jobs:
-  index:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
-      - name: Generate LSIF data
-        uses: sourcegraph/lsif-rust-action@main
-      - name: Upload LSIF data
-        uses: sourcegraph/lsif-upload-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
   check-msrv:
     runs-on: ${{ matrix.os }}
     strategy:
