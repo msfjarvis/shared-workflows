@@ -89,6 +89,7 @@ jobs:
       uses: dtolnay/rust-toolchain@1ce4a7352a1efe5dede2e52c75512b34256e4f44 # tag=v1
       with:
         toolchain: ${{ matrix.rust }}
+        components: clippy, rustfmt
 
     - name: Install cargo-nextest
       uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
