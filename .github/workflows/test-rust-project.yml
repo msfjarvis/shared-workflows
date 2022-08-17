@@ -59,8 +59,13 @@ jobs:
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}
 
+    - name: Install cargo-hack
+      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
+      with:
+        crate: cargo-hack
+
     - name: Test compilation
-      run: cargo check
+      run: cargo hack check --each-feature
 
   test:
     runs-on: ${{ matrix.os }}
@@ -101,6 +106,11 @@ jobs:
       with:
         crate: cargo-deny
 
+    - name: Install cargo-hack
+      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
+      with:
+        crate: cargo-hack
+
     - uses: Swatinem/rust-cache@v1
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}-${{ matrix.rust }}
@@ -124,9 +134,13 @@ jobs:
         if [ -f deny.toml ]; then
           cargo deny check
         fi
+
     - name: Clippy
       shell: bash
       run: cargo clippy -- -Wclippy::pedantic
+
+    - name: Test compilation
+      run: cargo hack check --each-feature
 
     - name: Run tests
       shell: bash
