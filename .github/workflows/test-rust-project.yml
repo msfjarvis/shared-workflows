@@ -128,6 +128,12 @@ jobs:
       shell: bash
       run: cargo fmt -- --check
 
+    - name: Setup Embark Studios lint rules
+      shell: bash
+      run: |
+        mkdir .cargo
+        curl -sL https://raw.githubusercontent.com/EmbarkStudios/rust-ecosystem/main/lints.toml > .cargo/config.toml
+
     - name: Run cargo-deny
       shell: bash
       run: |
@@ -137,7 +143,7 @@ jobs:
 
     - name: Clippy
       shell: bash
-      run: cargo clippy -- -Wclippy::pedantic
+      run: cargo clippy
 
     - name: Test compilation
       run: cargo hack check --each-feature
