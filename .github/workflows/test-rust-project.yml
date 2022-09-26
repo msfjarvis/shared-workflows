@@ -48,7 +48,7 @@ jobs:
           - windows-2022
     steps:
     - name: Checkout repository
-      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag = v3
+      uses: actions/checkout@e6d535c99c374d0c3f6d8cd8086a57b43c6c700a # tag = v3
 
     - name: Install Rust
       uses: dtolnay/rust-toolchain@1ce4a7352a1efe5dede2e52c75512b34256e4f44 # tag=v1
