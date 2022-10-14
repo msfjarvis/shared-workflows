@@ -67,6 +67,23 @@ jobs:
     - name: Test compilation
       run: cargo hack check --each-feature
 
+  cargo-deny:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        checks:
+          - advisories
+          - bans licenses sources
+
+    # Prevent sudden announcement of a new advisory from failing ci:
+    continue-on-error: ${{ matrix.checks == 'advisories' }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: EmbarkStudios/cargo-deny-action@v1
+      with:
+        command: check ${{ matrix.checks }}
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -101,11 +118,6 @@ jobs:
       with:
         crate: cargo-nextest
 
-    - name: Install cargo-deny
-      uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
-      with:
-        crate: cargo-deny
-
     - name: Install cargo-hack
       uses: baptiste0928/cargo-install@bf6758885262d0e6f61089a9d8c8790d3ac3368f # tag=v1
       with:
@@ -133,18 +145,6 @@ jobs:
       run: |
         mkdir .cargo
         curl -sL https://raw.githubusercontent.com/EmbarkStudios/rust-ecosystem/main/lints.toml > .cargo/config.toml
-
-    - name: Run cargo-deny
-      shell: bash
-      run: |
-        if [ -f deny.toml ]; then
-          n=0
-          until [ "$n" -ge 5 ]; do
-            cargo deny check && break
-            n=$((n+1))
-            sleep 5
-          done
-        fi
 
     - name: Clippy
       shell: bash
