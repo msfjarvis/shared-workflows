@@ -55,7 +55,7 @@ jobs:
       with:
         toolchain: ${{ inputs.msrv }}
 
-    - uses: Swatinem/rust-cache@v2.0.0
+    - uses: Swatinem/rust-cache@6720f05bc48b77f96918929a9019fb2203ff71f8 # tag=v2.0.0
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}
 
@@ -79,8 +79,8 @@ jobs:
     continue-on-error: ${{ matrix.checks == 'advisories' }}
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: EmbarkStudios/cargo-deny-action@v1
+    - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # tag=v2
+    - uses: EmbarkStudios/cargo-deny-action@7257a18a9c2fe3f92b85d41ae473520dff953c97 # tag=v1
       with:
         command: check ${{ matrix.checks }}
 
@@ -123,7 +123,7 @@ jobs:
       with:
         crate: cargo-hack
 
-    - uses: Swatinem/rust-cache@v2.0.0
+    - uses: Swatinem/rust-cache@6720f05bc48b77f96918929a9019fb2203ff71f8 # tag=v2.0.0
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}-${{ matrix.rust }}
 
