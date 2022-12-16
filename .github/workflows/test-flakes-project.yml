@@ -1,0 +1,34 @@
+name: Test Nix Flakes project
+
+on:
+  workflow_call:
+    secrets:
+      cachix-token:
+        required: true
+      github-token:
+        required: true
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@daddc62a2e67d1decb56e028c9fa68344b9b7c2a # tag=v18
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config:
+          access-tokens = github.com=${{ secrets.github-token }}
+
+    - name: Set up Cachix (msfjarvis)
+      uses: cachix/cachix-action@6a9a34cdd93d0ae4b4b59fd678660efb08109f2f # tag=v12
+      with:
+        name: msfjarvis
+        authToken: ${{ secrets.cachix-token }}
+        cachixArgs: -c9 --omit-deriver
+
+    - name: Run checks
+      run: |
+        nix flake check
