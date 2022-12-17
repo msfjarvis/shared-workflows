@@ -51,7 +51,7 @@ jobs:
       uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
 
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@1ce4a7352a1efe5dede2e52c75512b34256e4f44 # tag=v1
+      uses: dtolnay/rust-toolchain@e645b0cf01249a964ec099494d38d2da0f0b349f # v1
       with:
         toolchain: ${{ inputs.msrv }}
 
@@ -108,7 +108,7 @@ jobs:
         make-default: true
 
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@1ce4a7352a1efe5dede2e52c75512b34256e4f44 # tag=v1
+      uses: dtolnay/rust-toolchain@e645b0cf01249a964ec099494d38d2da0f0b349f # v1
       with:
         toolchain: ${{ matrix.rust }}
         components: clippy, rustfmt
