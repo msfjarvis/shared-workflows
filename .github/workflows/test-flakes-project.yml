@@ -2,6 +2,11 @@ name: Test Nix Flakes project
 
 on:
   workflow_call:
+    inputs:
+      extra-targets:
+        type: string
+        required: false
+        default: ""
     secrets:
       cachix-token:
         required: true
@@ -29,6 +34,18 @@ jobs:
         authToken: ${{ secrets.cachix-token }}
         cachixArgs: -c9 --omit-deriver
 
-    - name: Run checks
+    - name: Run default check
+      shell: bash
       run: |
         nix flake check
+
+    - name: Run additional checks
+      shell: bash
+      if: ${{ inputs.extra-targets != '' }}
+      env:
+        TARGET_STRING: ${{ inputs.extra-targets }}
+      run: |
+        read -ra TARGETS <<<"$TARGET_STRING"
+        for TARGET in "${TARGETS[@]}"; do
+          nix build "${TARGET}"
+        done
