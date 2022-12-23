@@ -38,6 +38,7 @@ env:
 
 jobs:
   check-msrv:
+    name: Check MSRV
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
@@ -68,6 +69,7 @@ jobs:
       run: cargo hack check --each-feature
 
   cargo-deny:
+    name: Run cargo-deny
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -85,6 +87,7 @@ jobs:
         command: check ${{ matrix.checks }}
 
   test:
+    name: Run checks
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
