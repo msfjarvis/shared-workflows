@@ -38,7 +38,7 @@ jobs:
     - name: Run default check
       shell: bash
       run: |
-        nix flake check
+        nix flake check --print-build-logs
 
     - name: Run additional checks
       shell: bash
@@ -48,5 +48,5 @@ jobs:
       run: |
         read -ra TARGETS <<<"$TARGET_STRING"
         for TARGET in "${TARGETS[@]}"; do
-          nix build "${TARGET}"
+          nix build --print-build-logs "${TARGET}"
         done
