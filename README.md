@@ -1,4 +1,4 @@
-# shared-workflows
+# shared-workflows [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 GitHub Actions workflows I use across multiple projects, stored in a single place for reusability.
 
