@@ -1,4 +1,4 @@
-name: Test Nix Flakes project
+name: Update flake.lock
 
 on:
   workflow_call:
