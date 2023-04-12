@@ -49,7 +49,7 @@ jobs:
           - windows-2022
     steps:
     - name: Checkout repository
-      uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+      uses: actions/checkout@83b7061638ee4956cf7545a6f7efe594e5ad0247 # v3
 
     - name: Install Rust
       uses: dtolnay/rust-toolchain@52e69531e6f69a396bc9d1226284493a5db969ff # v1
@@ -81,7 +81,7 @@ jobs:
     continue-on-error: ${{ matrix.checks == 'advisories' }}
 
     steps:
-    - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+    - uses: actions/checkout@83b7061638ee4956cf7545a6f7efe594e5ad0247 # v3
     - uses: EmbarkStudios/cargo-deny-action@3d26fd4e2adf837aee64b12f86d4dabb799fcfa2 # v1
       with:
         command: check ${{ matrix.checks }}
@@ -103,7 +103,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+      uses: actions/checkout@83b7061638ee4956cf7545a6f7efe594e5ad0247 # v3
 
     - uses: rui314/setup-mold@ef083ef969bd785ce0477507a001c8302bd757db # v1
       if: runner.os == 'Linux'
