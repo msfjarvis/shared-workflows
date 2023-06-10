@@ -3,7 +3,12 @@
   "extends": [
     "config:base"
   ],
-  "lockFileMaintenance": { "enabled": true },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 4am on sunday"
+    ]
+  },
   "packageRules": [
     {
       "matchPackagePatterns": [
