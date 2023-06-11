@@ -4,6 +4,8 @@
     "config:base"
   ],
   "lockFileMaintenance": {
+    "automerge": true,
+    "automergeType": "branch",
     "enabled": true,
     "schedule": [
       "before 4am on sunday"
