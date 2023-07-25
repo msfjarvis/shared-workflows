@@ -7,6 +7,10 @@ on:
         type: string
         required: false
         default: ""
+      extra-nix-flags:
+        type: string
+        required: false
+        default: ""
     secrets:
       cachix-token:
         required: true
@@ -33,16 +37,21 @@ jobs:
 
     - name: Run default check
       shell: bash
+      env:
+        NIX_FLAGS: ${{ inputs.extra-nix-flags }}
       run: |
-        nix flake check --print-build-logs
+        read -ra FLAGS <<<"$NIX_FLAGS"
+        nix flake check --print-build-logs "${FLAGS[@]}"
 
     - name: Run additional checks
       shell: bash
       if: ${{ inputs.extra-targets != '' }}
       env:
         TARGET_STRING: ${{ inputs.extra-targets }}
+        NIX_FLAGS: ${{ inputs.extra-nix-flags }}
       run: |
         read -ra TARGETS <<<"$TARGET_STRING"
+        read -ra FLAGS <<<"$NIX_FLAGS"
         for TARGET in "${TARGETS[@]}"; do
-          nix build --print-build-logs "${TARGET}"
+          nix build --print-build-logs "${FLAGS[@]}" "${TARGET}"
         done
