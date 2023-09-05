@@ -28,6 +28,9 @@ jobs:
     - name: Install Nix
       uses: DeterminateSystems/nix-installer-action@65d7c888b2778e8cf30a07a88422ccb23499bfb8 # v4
 
+    - name: Set up Magic Nix Cache
+      uses: DeterminateSystems/magic-nix-cache-action@v2
+
     - name: Set up Cachix (msfjarvis)
       uses: cachix/cachix-action@6a9a34cdd93d0ae4b4b59fd678660efb08109f2f # tag=v12
       with:
