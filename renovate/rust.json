@@ -12,15 +12,5 @@
     ]
   },
   "packageRules": [
-    {
-      "managers": [
-        "cargo"
-      ],
-      "matchPackagePatterns": [
-        "serde",
-        "serde_derive"
-      ],
-      "groupName": "serde"
-    }
   ]
 }
