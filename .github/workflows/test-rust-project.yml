@@ -56,7 +56,7 @@ jobs:
       with:
         toolchain: ${{ inputs.msrv }}
 
-    - uses: Swatinem/rust-cache@3cf7f8cc28d1b4e7d01e3783be10a97d55d483c8 # v2.7.1
+    - uses: Swatinem/rust-cache@a22603398250b864f7190077025cf752307154dc # v2.7.2
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}
 
@@ -126,7 +126,7 @@ jobs:
       with:
         crate: cargo-hack
 
-    - uses: Swatinem/rust-cache@3cf7f8cc28d1b4e7d01e3783be10a97d55d483c8 # v2.7.1
+    - uses: Swatinem/rust-cache@a22603398250b864f7190077025cf752307154dc # v2.7.2
       with:
         key: cargo-cache-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}-${{ matrix.os }}-${{ matrix.rust }}
 
