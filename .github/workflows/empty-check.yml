@@ -1,0 +1,11 @@
+name: Empty check
+
+on:
+  push:
+    branches: 
+      - renovate/**
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo
