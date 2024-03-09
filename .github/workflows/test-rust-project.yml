@@ -105,7 +105,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-    - uses: rui314/setup-mold@c9803d2102b7e020ad0ccd687c55b2ad8baf3496 # v1
+    - uses: rui314/setup-mold@65ebd6e8eaa076198082114e4a8ab5c209b13ec4 # v1
       if: runner.os == 'Linux'
       with:
         make-default: true
