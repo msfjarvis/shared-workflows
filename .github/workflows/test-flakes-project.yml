@@ -44,7 +44,7 @@ jobs:
         NIX_FLAGS: ${{ inputs.extra-nix-flags }}
       run: |
         read -ra FLAGS <<<"$NIX_FLAGS"
-        nix flake check --print-build-logs "${FLAGS[@]}"
+        nix flake check '.?submodules=1#' --print-build-logs "${FLAGS[@]}"
 
     - name: Run additional checks
       shell: bash
