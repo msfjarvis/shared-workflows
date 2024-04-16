@@ -12,5 +12,15 @@
     ]
   },
   "packageRules": [
+    {
+      "managers": [
+        "cargo"
+      ],
+      "matchPackagePatterns": [
+        "gladis",
+        "gladis_proc_macros"
+      ],
+      "groupName": "gladis"
+    }
   ]
 }
