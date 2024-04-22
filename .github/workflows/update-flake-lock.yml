@@ -2,6 +2,12 @@ name: Update flake.lock
 
 on:
   workflow_call:
+    inputs:
+      inputs:
+        description: Space separated list of flake inputs to be updated (defaults to all)
+        type: string
+        default: ""
+        required: false
     secrets:
       github-token:
         required: true
@@ -21,8 +27,10 @@ jobs:
 
     - name: Update flake.lock and push
       shell: bash
+      env:
+        INPUTS: ${{ inputs.inputs }}
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "noreply@github.com"
-        nix flake update --commit-lock-file
+        nix flake update ${INPUTS} --commit-lock-file
         git push
