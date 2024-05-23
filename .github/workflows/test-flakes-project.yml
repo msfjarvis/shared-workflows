@@ -27,11 +27,9 @@ jobs:
       with:
         submodules: 'recursive'
 
-    - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@8cdf194da984e4f12b2f8c36d1fa107c1dd67f5c # v11
-
-    - name: Set up Magic Nix Cache
-      uses: DeterminateSystems/magic-nix-cache-action@87e8236f46702ab0ce5a058b605a173ec88d618e # v6
+    - uses: cachix/install-nix-action@v27
+      with:
+        github_access_token: ${{ secrets.github-token }}
 
     - name: Set up Cachix (msfjarvis)
       uses: cachix/cachix-action@ad2ddac53f961de1989924296a1f236fcfbaa4fc # v15

@@ -22,8 +22,9 @@ jobs:
       with:
         token: ${{ secrets.github-token }}
 
-    - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@8cdf194da984e4f12b2f8c36d1fa107c1dd67f5c # v11
+    - uses: cachix/install-nix-action@v27
+      with:
+        github_access_token: ${{ secrets.github-token }}
 
     - name: Update flake.lock and push
       shell: bash
