@@ -36,7 +36,7 @@ jobs:
           access-tokens = github.com=${{ secrets.github-token }}
 
     - name: Restore and cache Nix store
-      uses: nix-community/cache-nix-action@76f6697d63b7378f7161d52f3d81784130ecd90d # v6.1.4
+      uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
       with:
         primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock', 'flake.nix', 'Cargo.lock') }}
         restore-prefixes-first-match: nix-${{ runner.os }}-
