@@ -29,11 +29,16 @@ jobs:
         persist-credentials: false
 
     - name: Install Nix
-      uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
-      with:
-        nix_conf: |
-          experimental-features = pipe-operators
-          access-tokens = github.com=${{ secrets.github-token }}
+      shell: bash
+      run: |
+        if [[ -z $(command -v nix) ]]; then
+          curl --proto '=https' --tlsv1.2 -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm --extra-conf "
+            trusted-users = $(whoami)
+            access-tokens = github.com=$GITHUB_TOKEN
+          "
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Restore and cache Nix store
       uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
