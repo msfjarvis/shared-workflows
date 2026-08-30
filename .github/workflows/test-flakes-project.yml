@@ -7,6 +7,7 @@ on:
         type: string
         required: false
         default: ""
+      # No idea where this is used, choosing to ignore it.
       extra-nix-flags:
         type: string
         required: false
@@ -42,11 +43,9 @@ jobs:
 
     - name: Run default check
       shell: bash
-      env:
-        NIX_FLAGS: ${{ inputs.extra-nix-flags }}
       run: |
-        read -ra FLAGS <<<"$NIX_FLAGS"
-        nix flake check '.?submodules=1#' --print-build-logs "${FLAGS[@]}"
+        nix profile install github:NixOS/nixpkgs/nixpkgs-unstable#nix-fast-build
+        nix-fast-build --flake '.?submodules=1#' --no-nom --fail-fast --print-build-logs
 
     - name: Run additional checks
       shell: bash
