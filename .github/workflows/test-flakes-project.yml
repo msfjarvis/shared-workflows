@@ -45,7 +45,7 @@ jobs:
       shell: bash
       run: |
         nix profile install github:NixOS/nixpkgs/nixpkgs-unstable#nix-fast-build
-        nix-fast-build --flake '.?submodules=1#' --no-nom --fail-fast --print-build-logs
+        nix-fast-build --flake '.?submodules=1#' --no-nom --fail-fast
 
     - name: Run additional checks
       shell: bash
