@@ -45,7 +45,7 @@ jobs:
       shell: bash
       run: |
         nix profile install github:NixOS/nixpkgs/nixpkgs-unstable#nix-fast-build
-        nix-fast-build --flake ".?submodules=1#checks.$(nix eval --raw --impure --file builtins.currentSystem)" --no-nom --fail-fast
+        nix-fast-build --flake ".?submodules=1#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" --no-nom --fail-fast
 
     - name: Run additional checks
       shell: bash
