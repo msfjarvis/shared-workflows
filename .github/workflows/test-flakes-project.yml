@@ -34,7 +34,10 @@ jobs:
       run: |
         if [[ -z $(command -v nix) ]]; then
           curl --proto '=https' --tlsv1.2 -sSf -L https://nixos.org/nix/install | sh -s -- --daemon --yes
-          echo "access-tokens = github.com=$GITHUB_TOKEN" | sudo tee -a /etc/nix/nix.conf > /dev/null
+          {
+            echo "access-tokens = github.com=$GITHUB_TOKEN"
+            echo "experimental-features = nix-command flakes"
+          } | sudo tee -a /etc/nix/nix.conf > /dev/null
           echo /nix/var/nix/profiles/default/bin >> "$GITHUB_PATH"
         fi
       env:
