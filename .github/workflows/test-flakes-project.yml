@@ -48,6 +48,8 @@ jobs:
       run: |
         nix profile install github:NixOS/nixpkgs/nixpkgs-unstable#nix-fast-build
         export PATH="$HOME/.nix-profile/bin:$PATH"
+        nix-fast-build --flake ".?submodules=1#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" --no-nom --fail-fast || true
+        # Intentionally duplicated to work around cache nonsense that makes first invocation fail
         nix-fast-build --flake ".?submodules=1#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" --no-nom --fail-fast
 
     - name: Run additional checks
